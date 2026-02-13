@@ -1,0 +1,6 @@
+@echo off
+echo Testing Download...
+curl -v "http://localhost:5000/api/content/stream/ROOT/TestPDF/test_pdf.txt"
+echo.
+echo Testing Delete...
+curl -X DELETE -H "Content-Type: application/json" -H "x-admin-secret: OPEN_CHAPTER_ADMIN_2026" -d "{\"path\":\"ROOT/TestPDF/test_pdf.txt\"}" "http://localhost:5000/api/content/delete"
