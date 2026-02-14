@@ -172,7 +172,6 @@ const Dashboard = () => {
     };
 
     return (
-    return (
         <div className="dashboard-layout">
             {/* Sidebar */}
             <aside className="glass-panel dashboard-sidebar" style={{ borderRadius: '16px', overflow: 'hidden' }}>
