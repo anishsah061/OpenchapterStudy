@@ -25,8 +25,8 @@ COPY server/ ./
 WORKDIR /app
 
 # Expose the port (Railway will set PORT env var, usually random)
-ENV PORT=8000
-EXPOSE 8000
+ENV PORT=8080
+EXPOSE 8080
 
 # Start the server
 CMD ["node", "server/server.js"]
