@@ -295,10 +295,5 @@ router.get(/^\/stream\/(.+)$/, async (req, res) => {
     }
 });
 
-    } catch (err) {
-    console.error("Stream Error", err);
-    res.status(500).json({ error: "Failed to stream file" });
-}
-});
 
 module.exports = router;
