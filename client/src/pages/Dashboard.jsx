@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaFolder, FaFilePdf, FaTrash, FaSignOutAlt, FaUpload, FaFolderPlus, FaArrowLeft, FaEye } from 'react-icons/fa';
+import { FaFolder, FaFilePdf, FaTrash, FaSignOutAlt, FaUpload, FaFolderPlus, FaArrowLeft, FaEye, FaChartPie, FaArrowUp, FaPowerOff, FaSync, FaFileUpload } from 'react-icons/fa';
 import { useUI } from '../context/UIContext';
 
 const Dashboard = () => {
