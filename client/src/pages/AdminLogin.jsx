@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaLock, FaArrowLeft } from 'react-icons/fa';
-import API_URL from '../config';
 
 const AdminLogin = () => {
     const [secret, setSecret] = useState('');
