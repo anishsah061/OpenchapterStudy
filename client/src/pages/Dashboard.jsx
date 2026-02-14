@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaFolder, FaFilePdf, FaTrash, FaSignOutAlt, FaUpload, FaFolderPlus, FaArrowLeft, FaEye } from 'react-icons/fa';
-import API_URL from '../config';
 import { useUI } from '../context/UIContext';
 
 const Dashboard = () => {
@@ -27,7 +26,7 @@ const Dashboard = () => {
     const fetchStructure = async () => {
         setLoading(true);
         try {
-            const res = await axios.get(`${API_URL}/api/content/structure`);
+            const res = await axios.get('/api/content/structure');
             setStructure(res.data);
             setLoading(false);
         } catch (err) {
@@ -45,7 +44,7 @@ const Dashboard = () => {
         formData.append('path', selectedPath);
 
         try {
-            await axios.post(`${API_URL}/api/content/upload`, formData, {
+            await axios.post('/api/content/upload', formData, {
                 headers: {
                     'x-admin-secret': adminKey,
                     'Content-Type': 'multipart/form-data'
@@ -66,7 +65,7 @@ const Dashboard = () => {
         const folderPath = selectedPath ? `${selectedPath}/${newFolderName}` : newFolderName;
 
         try {
-            await axios.post(`${API_URL}/api/content/create-folder`, { path: folderPath }, {
+            await axios.post('/api/content/create-folder', { path: folderPath }, {
                 headers: { 'x-admin-secret': adminKey }
             });
             fetchStructure();
@@ -101,7 +100,7 @@ const Dashboard = () => {
     const performDelete = async (path) => {
         closeModal();
         try {
-            await axios.delete(`${API_URL}/api/content/delete`, {
+            await axios.delete('/api/content/delete', {
                 headers: { 'x-admin-secret': adminKey },
                 data: { path }
             });

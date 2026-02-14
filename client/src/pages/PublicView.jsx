@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaFolder, FaFilePdf, FaArrowLeft, FaSearch } from 'react-icons/fa';
-import API_URL from '../config';
 import SecureViewer from '../components/SecureViewer';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +17,7 @@ const PublicView = () => {
 
     const fetchStructure = async () => {
         try {
-            const res = await axios.get(`${API_URL}/api/content/structure`);
+            const res = await axios.get('/api/content/structure');
             setStructure(res.data);
             setLoading(false);
         } catch (err) {
