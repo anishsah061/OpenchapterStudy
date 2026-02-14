@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaFolder, FaFilePdf, FaArrowLeft, FaSearch } from 'react-icons/fa';
+import { FaFolder, FaFilePdf, FaArrowLeft, FaSearch, FaGamepad, FaUserShield, FaHome } from 'react-icons/fa';
 import SecureViewer from '../components/SecureViewer';
 import { useNavigate } from 'react-router-dom';
 
