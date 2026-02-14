@@ -235,7 +235,8 @@ router.delete('/delete', verifyAdmin, async (req, res) => {
 
 // GET /api/content/stream/:path*
 router.get(/^\/stream\/(.+)$/, async (req, res) => {
-    const virtualPath = req.params[0];
+    // Explicitly decode the path components
+    const virtualPath = decodeURIComponent(req.params[0]);
 
     let pathStr = virtualPath;
     if (!pathStr.startsWith('ROOT')) pathStr = 'ROOT/' + pathStr;
@@ -244,8 +245,8 @@ router.get(/^\/stream\/(.+)$/, async (req, res) => {
     let targetParent = pathStr.substring(0, lastSlash);
     let targetName = pathStr.substring(lastSlash + 1);
 
-    console.log(`DEBUG Stream: virtualPath=${virtualPath}, pathStr=${pathStr}`);
-    console.log(`DEBUG Stream: targetParent=${targetParent}, targetName=${targetName}`);
+    console.log(`DEBUG Stream: Request for "${virtualPath}"`);
+    console.log(`DEBUG Stream: Parsed -> Parent="${targetParent}", Name="${targetName}"`);
 
     try {
         let item = await Content.findOne({ parentPath: targetParent, name: targetName });
@@ -258,14 +259,18 @@ router.get(/^\/stream\/(.+)$/, async (req, res) => {
         }
 
         if (!item || !item.fileId) {
+            console.warn(`DEBUG Stream: File not found in DB metadata. Path: ${pathStr}`);
             return res.status(404).json({ error: 'File not found' });
         }
 
         if (!gfsBucket) {
+            console.error("DEBUG Stream: GridFS not initialized");
             return res.status(500).json({ error: 'GridFS not initialized' });
         }
 
-        const downloadStream = gfsBucket.openDownloadStream(item.fileId);
+        // Ensure fileId is ObjectId
+        const fileId = new mongoose.Types.ObjectId(item.fileId);
+        const downloadStream = gfsBucket.openDownloadStream(fileId);
 
         if (pathStr.toLowerCase().endsWith('.pdf')) {
             res.setHeader('Content-Type', 'application/pdf');
@@ -276,13 +281,24 @@ router.get(/^\/stream\/(.+)$/, async (req, res) => {
 
         downloadStream.on('error', (err) => {
             console.error('Stream error:', err);
-            res.status(404).json({ error: 'File not found in storage' });
+            // If headers already sent, we can't send JSON.
+            if (!res.headersSent) {
+                res.status(404).json({ error: 'File not found in storage' });
+            }
         });
 
     } catch (err) {
         console.error("Stream Error", err);
-        res.status(500).json({ error: "Failed to stream file" });
+        if (!res.headersSent) {
+            res.status(500).json({ error: "Failed to stream file" });
+        }
     }
+});
+
+    } catch (err) {
+    console.error("Stream Error", err);
+    res.status(500).json({ error: "Failed to stream file" });
+}
 });
 
 module.exports = router;
