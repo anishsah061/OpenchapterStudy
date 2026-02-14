@@ -17,7 +17,7 @@ RUN npm run build
 # --- SERVER SETUP ---
 WORKDIR /app/server
 COPY server/package*.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 COPY server/ ./
 
 # --- FINAL SETUP ---
