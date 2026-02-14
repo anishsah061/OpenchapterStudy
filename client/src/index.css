@@ -124,3 +124,60 @@ body {
     opacity: 1;
   }
 }
+
+/* Responsive Dashboard */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: row;
+}
+
+.dashboard-sidebar {
+  width: 280px;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-main {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  height: calc(100vh - 120px);
+}
+
+/* Mobile/Tablet Styles */
+@media (max-width: 768px) {
+  .dashboard-layout {
+    flex-direction: column;
+  }
+
+  .dashboard-sidebar {
+    width: auto;
+    margin: 1rem;
+    max-height: 200px;
+    /* Collapsible or scrollable */
+  }
+
+  .dashboard-main {
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+    /* Stack vertically */
+    height: auto;
+  }
+
+  .file-structure-panel {
+    min-height: 300px;
+  }
+}

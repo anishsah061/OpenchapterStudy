@@ -172,9 +172,10 @@ const Dashboard = () => {
     };
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh' }}>
+    return (
+        <div className="dashboard-layout">
             {/* Sidebar */}
-            <aside className="glass-panel" style={{ width: '280px', margin: '1rem', borderRadius: '16px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+            <aside className="glass-panel dashboard-sidebar" style={{ borderRadius: '16px', overflow: 'hidden' }}>
                 <div style={{ padding: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
                     <h2 style={{ margin: 0, fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <FaChartPie color="#a855f7" /> Dashboard
@@ -212,7 +213,7 @@ const Dashboard = () => {
             </aside>
 
             {/* Main Content */}
-            <main style={{ flex: 1, padding: '1rem', overflowY: 'auto' }}>
+            <main className="dashboard-main">
                 <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                     <h1 style={{ fontSize: '1.8rem' }}>File Manager</h1>
                     <button onClick={fetchStructure} className="glass-button" style={{ background: 'rgba(255,255,255,0.1)' }}>
@@ -220,9 +221,9 @@ const Dashboard = () => {
                     </button>
                 </header>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1.5rem', height: 'calc(100vh - 120px)' }}>
+                <div className="content-grid">
                     {/* Structure Tree */}
-                    <div className="glass-panel" style={{ padding: '1.5rem', overflowY: 'auto', borderRadius: '16px' }}>
+                    <div className="glass-panel file-structure-panel" style={{ padding: '1.5rem', overflowY: 'auto', borderRadius: '16px' }}>
                         <h3 style={{ marginTop: 0, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                             <FaFolder color="#fbbf24" /> Files & Folders
                         </h3>
