@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaLock, FaArrowLeft } from 'react-icons/fa';
+import API_URL from '../config';
 
 const AdminLogin = () => {
     const [secret, setSecret] = useState('');
@@ -13,7 +14,7 @@ const AdminLogin = () => {
         setError('');
 
         try {
-            const response = await axios.post('/api/auth/verify', { secret });
+            const response = await axios.post(`${API_URL}/api/auth/verify`, { secret });
             if (response.data.success) {
                 localStorage.setItem('adminKey', secret);
                 navigate('/dashboard');
